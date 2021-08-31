@@ -15,3 +15,16 @@ Content-Type: application/json
     "username": "trung",
     "password": "123456"
 }
+
+###
+
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDdmNmNjNTdhY2UzN2M3YjdmNjYiLCJpYXQiOjE2MzA0MjU1OTd9.dVHoSIpgRoK5KDh5ZQ1QH0WYecxn8uqCr_5K_TAGDkY
+
+{
+    "title" : "Learn PHP",
+    "description": "PHP",
+    "url": "laravel.com",
+    "status": "LEARNED"
+}

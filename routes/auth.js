@@ -49,7 +49,7 @@ router.post("/register", async (req, res) => {
 });
 
 // @route POST api/auth/login
-// @desc Register User
+// @desc Login User
 // @access Public
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
