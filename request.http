@@ -18,13 +18,36 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:5000/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDdmNmNjNTdhY2UzN2M3YjdmNjYiLCJpYXQiOjE2MzA0NTk1Mzl9.ph1Co7oi1uTjFodjMplCZbyd7PT-7fxju3A1h9AEET4
+
+###
+
 POST http://localhost:5000/api/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDdmNmNjNTdhY2UzN2M3YjdmNjYiLCJpYXQiOjE2MzA0MjU1OTd9.dVHoSIpgRoK5KDh5ZQ1QH0WYecxn8uqCr_5K_TAGDkY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDg1YWZhMTQxYmMwYTllYjU4MDgiLCJpYXQiOjE2MzA0NjEyNTF9.D1ySL57wgpY7RpxWKmYU4DwLKpgkdNOSD55-sqx1Sm8
 
 {
-    "title" : "Learn PHP",
-    "description": "PHP",
-    "url": "laravel.com",
-    "status": "LEARNED"
+    "title" : "Learn Node",
+    "description": "Node",
+    "url": "node.com",
+    "status": "TO LEARN"
 }
+
+###
+
+PUT http://localhost:5000/api/posts/612e42ceac39ac9800501f6b
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDdmNmNjNTdhY2UzN2M3YjdmNjYiLCJpYXQiOjE2MzA0NjU5NDB9.BuxnWIWd8SM-JOnVWsGYse5wGqx1QIJ3HeK4OxIxsTQ
+
+{
+    "title": "Angular",
+    "description": "Angular JS",
+    "url":"angular.org",
+    "status": "LEARNING"
+}
+
+###
+
+DELETE http://localhost:5000/api/posts/612e42ceac39ac9800501f6b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MTJlMDdmNmNjNTdhY2UzN2M3YjdmNjYiLCJpYXQiOjE2MzA0NjU5NDB9.BuxnWIWd8SM-JOnVWsGYse5wGqx1QIJ3HeK4OxIxsTQ
