@@ -49,6 +49,27 @@ const AuthContextProvider = ({ children }) => {
           response.data.accessToken
         );
 
+      await loadUser();
+
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+
+  //Register
+  const registerUser = async (userForm) => {
+    try {
+      const response = await axios.post(`${apiUrl}/auth/register`, userForm);
+      if (response.data.success)
+        localStorage.setItem(
+          LOCAL_STORAGE_TOKEN_NAME,
+          response.data.accessToken
+        );
+
+      await loadUser();
+
       return response.data;
     } catch (error) {
       if (error.response.data) return error.response.data;
@@ -57,7 +78,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   //Context data
-  const authContextData = { loginUser, authState };
+  const authContextData = { loginUser, registerUser, authState };
 
   // Return provider
   return (
