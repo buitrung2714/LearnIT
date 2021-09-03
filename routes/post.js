@@ -40,14 +40,14 @@ router.post("/", verifyToken, async (req, res) => {
       description,
       url: url.startsWith("https://") ? url : `https://${url}`,
       status: status || "TO LEARN",
-      user: "612e07f6cc57ace37c7b7f66",
+      user: req.userID,
     });
     await newPost.save();
 
     return res.json({
       success: true,
       message: "Happy Learning",
-      newPost,
+      post: newPost,
     });
   } catch (error) {
     console.log(error);
@@ -109,12 +109,10 @@ router.delete("/:id", verifyToken, async (req, res) => {
 
     //User not authorize or Post not found
     if (!deletePost)
-      return res
-        .status(401)
-        .json({
-          success: false,
-          message: "Post not found or User not authorize",
-        });
+      return res.status(401).json({
+        success: false,
+        message: "Post not found or User not authorize",
+      });
 
     res.json({ success: true, message: "Delete Post Successfully" });
   } catch (error) {
