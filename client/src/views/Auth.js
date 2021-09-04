@@ -27,7 +27,7 @@ const Auth = ({ authRoute }) => {
       </>
     );
   return (
-    <div className="landing" style={{ padding: "160px" }}>
+    <div className="landing">
       <div className="dark-overplay">
         <div className="landing-inner">
           <h1>Learn IT</h1>
