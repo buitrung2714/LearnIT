@@ -12,7 +12,7 @@ const connectDB = async () => {
       `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@learnit.ggiry.mongodb.net/LearnIT?retryWrites=true&w=majority`
     );
 
-    console.log(`Connect DB Successfully !`);
+    console.log("MongoDB connected");
   } catch (error) {
     console.log(error.message);
     process.exit(1);
@@ -22,14 +22,12 @@ const connectDB = async () => {
 connectDB();
 
 const app = express();
-
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/auth", authRouter);
-
 app.use("/api/posts", postRouter);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server Started on PORT ${PORT}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

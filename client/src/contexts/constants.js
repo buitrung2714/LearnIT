@@ -1,7 +1,7 @@
 export const apiUrl =
   process.env.NODE_ENV !== "production"
-    ? "https://cryptic-beyond-17141.herokuapp.com/api"
-    : "https://cryptic-beyond-17141.herokuapp.com/api";
+    ? "https://rocky-lowlands-60986.herokuapp.com/api"
+    : "https://rocky-lowlands-60986.herokuapp.com/api";
 
 export const LOCAL_STORAGE_TOKEN_NAME = "learnit-mern";
 
