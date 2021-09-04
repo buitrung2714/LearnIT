@@ -89,7 +89,7 @@ router.put("/:id", verifyToken, async (req, res) => {
         message: "Post not found or User not authorize",
       });
 
-    res.json({ success: true, updatePost });
+    res.json({ success: true, post: updatePost, message: "Excellent" });
   } catch (error) {
     console.log(error);
     return res

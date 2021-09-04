@@ -2,37 +2,34 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { PostContext } from "../../contexts/PostContext";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
-const AddPostModal = () => {
+const UpdatePostModal = () => {
   //Context
-  const { showAddPostModal, setShowAddPostModal, addPost, setShowToast } =
-    useContext(PostContext);
+  const {
+    postState: { post },
+    showUpdatePostModal,
+    setShowUpdatePostModal,
+    updatePost,
+    setShowToast,
+  } = useContext(PostContext);
 
   //State
-  const [newPost, setNewPost] = useState({
-    title: "",
-    description: "",
-    url: "",
-    status: "TO LEARN",
-  });
+  const [editPost, setEditPost] = useState(post);
+
+  useEffect(() => setEditPost(post), [post]);
 
   //Hide MODAL
   const closeDialog = () => {
-    setNewPost({
-      title: "",
-      description: "",
-      url: "",
-      status: "TO LEARN",
-    });
-    setShowAddPostModal(false);
+    setEditPost(post);
+    setShowUpdatePostModal(false);
   };
 
-  const { title, description, url } = newPost;
+  const { title, description, url, status } = editPost;
 
-  const onChangeNewPost = (event) => {
-    setNewPost({
-      ...newPost,
+  const onChangeUpdatePost = (event) => {
+    setEditPost({
+      ...editPost,
       [event.target.name]: event.target.value,
     });
   };
@@ -40,15 +37,15 @@ const AddPostModal = () => {
   //SUBMIT
   const submitForm = async (event) => {
     event.preventDefault();
-    const { success, message } = await addPost(newPost);
+    const { success, message } = await updatePost(editPost);
     closeDialog();
     setShowToast({ type: success ? "success" : "danger", message: message });
   };
 
   return (
-    <Modal show={showAddPostModal} onHide={closeDialog}>
+    <Modal show={showUpdatePostModal} onHide={closeDialog}>
       <Modal.Header closeButton>
-        <Modal.Title>What do you want to learn?</Modal.Title>
+        <Modal.Title>Marking progress</Modal.Title>
       </Modal.Header>
 
       <Form onSubmit={submitForm}>
@@ -61,7 +58,7 @@ const AddPostModal = () => {
               name="title"
               area-aria-describedby="title-help"
               value={title}
-              onChange={onChangeNewPost}
+              onChange={onChangeUpdatePost}
             />
             <Form.Text id="title-help" muted>
               Required
@@ -74,7 +71,7 @@ const AddPostModal = () => {
               placeholder="Description..."
               name="description"
               value={description}
-              onChange={onChangeNewPost}
+              onChange={onChangeUpdatePost}
             />
           </Form.Group>
           <Form.Group>
@@ -83,8 +80,20 @@ const AddPostModal = () => {
               placeholder="Url..."
               name="url"
               value={url}
-              onChange={onChangeNewPost}
+              onChange={onChangeUpdatePost}
             />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              as="select"
+              value={status}
+              name="status"
+              onChange={onChangeUpdatePost}
+            >
+              <option value="TO LEARN">TO LEARN</option>
+              <option value="LEARNING">LEARNING</option>
+              <option value="LEARNED">LEARNED</option>
+            </Form.Control>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
@@ -100,4 +109,4 @@ const AddPostModal = () => {
   );
 };
 
-export default AddPostModal;
+export default UpdatePostModal;

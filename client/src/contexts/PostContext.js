@@ -5,6 +5,9 @@ import {
   POSTS_LOADED_SUCCESS,
   POSTS_LOADED_FAIL,
   ADD_POST,
+  DELETE_POST,
+  FIND_POST,
+  UPDATE_POST,
 } from "./constants";
 import axios from "axios";
 
@@ -13,6 +16,9 @@ export const PostContext = createContext();
 const PostContextProvider = ({ children }) => {
   //DYNAMIC ADD MODAL
   const [showAddPostModal, setShowAddPostModal] = useState(false);
+
+  //DYNAMIC UPDATE MODAL
+  const [showUpdatePostModal, setShowUpdatePostModal] = useState(false);
 
   //Dynamic Toast
   const [showToast, setShowToast] = useState({
@@ -23,6 +29,7 @@ const PostContextProvider = ({ children }) => {
 
   // State
   const [postState, dispatch] = useReducer(postReducer, {
+    post: null,
     posts: [],
     postsLoading: true,
   });
@@ -60,15 +67,65 @@ const PostContextProvider = ({ children }) => {
     }
   };
 
+  //FIND a posts
+  const findPost = (postId) => {
+    const post = postState.posts.find((post) => post._id === postId);
+    dispatch({
+      type: FIND_POST,
+      payload: post,
+    });
+  };
+
+  //UPDATE a posts
+  const updatePost = async (updatedPost) => {
+    try {
+      const response = await axios.put(
+        `${apiUrl}/posts/${updatedPost._id}`,
+        updatedPost
+      );
+      if (response.data.success)
+        dispatch({
+          type: UPDATE_POST,
+          payload: response.data.post,
+        });
+      return response.data;
+    } catch (error) {
+      return error.response.data
+        ? error.response.data
+        : { success: false, message: "Server Error" };
+    }
+  };
+
+  //DELETE a posts
+  const deletePost = async (postId) => {
+    try {
+      const response = await axios.delete(`${apiUrl}/posts/${postId}`);
+
+      //if success
+      if (response.data.success)
+        dispatch({
+          type: DELETE_POST,
+          payload: postId,
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Post context data
   const postContextData = {
     postState,
     getPosts,
     showAddPostModal,
     setShowAddPostModal,
+    showUpdatePostModal,
+    setShowUpdatePostModal,
     addPost,
     showToast,
     setShowToast,
+    deletePost,
+    findPost,
+    updatePost,
   };
 
   return (

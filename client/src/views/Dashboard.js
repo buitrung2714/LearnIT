@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import SinglePost from "../components/Post/SinglePost";
 import AddPostModal from "../components/Post/AddPostModal";
 import addIcon from "../assets/plus-circle-fill.svg";
+import UpdatePostModal from "../components/Post/UpdatePostModal";
 
 const Dashboard = () => {
   //AUTH
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
   //POSTS
   const {
-    postState: { posts, postsLoading },
+    postState: { post, posts, postsLoading },
     getPosts,
     setShowAddPostModal,
     showToast: { type, message, show },
@@ -91,7 +92,7 @@ const Dashboard = () => {
     <>
       {body}
       <AddPostModal />
-
+      {post !== null && <UpdatePostModal />}
       {/* Show Result with Toast */}
       <Toast
         className={`bg-${type} text-white`}
